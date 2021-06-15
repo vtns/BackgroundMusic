@@ -272,9 +272,7 @@ static NSString* const kMoreAppsMenuTitle          = @"More Apps";
     BGMAssert(menuItem, "!menuItem");
 
     CGFloat width = menuItem.view.frame.size.width;
-#if DEBUG
     CGFloat height = menuItem.view.frame.size.height;
-#endif
 
     const char* appName =
         [((NSRunningApplication*)menuItem.representedObject).localizedName UTF8String];
@@ -284,14 +282,21 @@ static NSString* const kMoreAppsMenuTitle          = @"More Apps";
         return fabs(x - y) < 0.01;  // We don't need much precision.
     };
     
-    if (nearEnough(button.frameCenterRotation, 0.0)) {
+    // Workaround to change menu item height
+    void(^setMenuItemSize)(NSMenuItem *item, CGSize size) = ^void(NSMenuItem *item, CGSize size) {
+        item.view.frameSize = size;
+        NSImage *image=[[NSImage alloc]initWithSize:size];
+        [item setImage:image];    };
+
+    
+    if ( height > (kAppVolumeViewInitialHeight + appVolumeViewFullHeight)/2) {
         // Hide extra controls
         DebugMsg("BGMAppVolumes::showHideExtraControls: Hiding extra controls (%s)", appName);
         
         BGMAssert(nearEnough(height, appVolumeViewFullHeight), "Extra controls were already hidden");
         
         // Make the menu item shorter to hide the extra controls. Keep the width unchanged.
-        menuItem.view.frameSize = NSMakeSize(width, kAppVolumeViewInitialHeight);
+        setMenuItemSize(menuItem, NSMakeSize(width, kAppVolumeViewInitialHeight));
         // Turn the button upside down so the arrowhead points down.
         button.frameCenterRotation = 180.0;
         // Move the button up slightly so it aligns with the volume slider.
@@ -309,11 +314,11 @@ static NSString* const kMoreAppsMenuTitle          = @"More Apps";
         // Show extra controls
         DebugMsg("BGMAppVolumes::showHideExtraControls: Showing extra controls (%s)", appName);
         
-        BGMAssert(nearEnough(button.frameCenterRotation, 180.0), "Unexpected button rotation");
+        //BGMAssert(nearEnough(button.frameCenterRotation, 180.0), "Unexpected button rotation");
         BGMAssert(nearEnough(height, kAppVolumeViewInitialHeight), "Extra controls were already shown");
         
         // Make the menu item taller to show the extra controls. Keep the width unchanged.
-        menuItem.view.frameSize = NSMakeSize(width, appVolumeViewFullHeight);
+        setMenuItemSize(menuItem, NSMakeSize(width, appVolumeViewFullHeight));
         // Turn the button rightside up so the arrowhead points up.
         button.frameCenterRotation = 0.0;
         // Move the button down slightly, back to it's original position.
@@ -389,6 +394,12 @@ static NSString* const kMoreAppsMenuTitle          = @"More Apps";
              menuItem:(NSMenuItem*)menuItem {
     #pragma unused (app, ctrl)
     
+//    if (@available(macOS 10.14, *)) {
+//        self.contentTintColor = [NSColor lightGrayColor];
+//    } else {
+//        // Fallback on earlier versions
+//    }
+
     // Set up the button that show/hide the extra controls (currently only a pan slider) for the app.
     self.cell.representedObject = menuItem;
     self.target = ctx;
@@ -411,11 +422,34 @@ static NSString* const kMoreAppsMenuTitle          = @"More Apps";
 
 @end
 
+@interface BGMAVM_VolumeSliderLayer : CALayer
+@end
+
+@implementation BGMAVM_VolumeSliderLayer
+
+- (void)setMasksToBounds:(BOOL)val {
+}
+
+- (BOOL)asksToBounds {
+    return NO;
+}
+@end
+
 @implementation BGMAVM_VolumeSlider {
     // Will be set to -1 for apps without a pid
     pid_t appProcessID;
     NSString* __nullable appBundleID;
     BGMAppVolumesController* controller;
+}
+
+- (BOOL)wantsDefaultClipping {
+    return NO;
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.wantsLayer = YES;
+    self.layer = [BGMAVM_VolumeSliderLayer new];
 }
 
 - (void) setUpWithApp:(NSRunningApplication*)app
