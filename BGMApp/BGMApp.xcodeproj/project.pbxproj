@@ -225,6 +225,7 @@
 		27FB8C2F1DE468320084DB9D /* BGM_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FB8C2E1DE468320084DB9D /* BGM_Utils.cpp */; settings = {COMPILER_FLAGS = "-frandom-seed=BGMApp-BGM_Utils.cpp"; }; };
 		27FB8C301DE4758A0084DB9D /* BGMPlayThrough.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C1962E51BC94E91008A4DF7 /* BGMPlayThrough.cpp */; };
 		27FB8C311DE4758A0084DB9D /* BGM_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FB8C2E1DE468320084DB9D /* BGM_Utils.cpp */; };
+		4AD0DCD826781ACE004DA25E /* BGMSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0DCD726781ACE004DA25E /* BGMSlider.m */; };
 		9E129A412602AE620005851B /* BGMASApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E129A402602AE620005851B /* BGMASApplication.m */; settings = {COMPILER_FLAGS = "-frandom-seed=BGMApp-BGMASApplication.m"; }; };
 		9E542C7026057FBA0016C0B5 /* BGMASApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E129A402602AE620005851B /* BGMASApplication.m */; };
 /* End PBXBuildFile section */
@@ -435,6 +436,8 @@
 		27F7D48F1D2483B100821C4B /* BGMDecibel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BGMDecibel.m; path = "Music Players/BGMDecibel.m"; sourceTree = "<group>"; };
 		27F7D4911D2484A300821C4B /* Decibel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Decibel.h; path = "Music Players/Decibel.h"; sourceTree = "<group>"; };
 		27FB8C2E1DE468320084DB9D /* BGM_Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BGM_Utils.cpp; path = ../SharedSource/BGM_Utils.cpp; sourceTree = "<group>"; };
+		4AD0DCD626781ACE004DA25E /* BGMSlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BGMSlider.h; sourceTree = "<group>"; };
+		4AD0DCD726781ACE004DA25E /* BGMSlider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BGMSlider.m; sourceTree = "<group>"; };
 		9E129A3F2602AE620005851B /* BGMASApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BGMASApplication.h; path = Scripting/BGMASApplication.h; sourceTree = "<group>"; };
 		9E129A402602AE620005851B /* BGMASApplication.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = BGMASApplication.m; path = Scripting/BGMASApplication.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -716,6 +719,8 @@
 				1C2FC3161EC7078F00A76592 /* Scripting */,
 				1CB8B3421BBA75EF000E2DD1 /* MainMenu.xib */,
 				1CB8B3391BBA75EF000E2DD1 /* Supporting Files */,
+				4AD0DCD626781ACE004DA25E /* BGMSlider.h */,
+				4AD0DCD726781ACE004DA25E /* BGMSlider.m */,
 			);
 			path = BGMApp;
 			sourceTree = "<group>";
@@ -1162,6 +1167,7 @@
 				1C1962E71BC94E91008A4DF7 /* BGMPlayThrough.cpp in Sources */,
 				1C8D8304204238DB00A838F2 /* BGMSwinsian.m in Sources */,
 				1C1962FA1BCAC061008A4DF7 /* CADebugMacros.cpp in Sources */,
+				4AD0DCD826781ACE004DA25E /* BGMSlider.m in Sources */,
 				27FB8C2F1DE468320084DB9D /* BGM_Utils.cpp in Sources */,
 				1C1962F31BCABFC5008A4DF7 /* CAHALAudioDevice.cpp in Sources */,
 				1CF5423C1EAAEE4300445AD8 /* BGMAudioDevice.cpp in Sources */,
